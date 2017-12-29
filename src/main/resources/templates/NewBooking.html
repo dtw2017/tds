@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Reading List</title>
+<script th:src="@{js/jquery-3.2.1.js}"></script>
+</head>
+
+<script>
+
+	function clickSupport(){
+	  	window.open( 'http://www.ibm.com');
+  	}
+	
+	function clickFavorite()
+	{
+		
+	}
+/*	sucess
+	function saveData(){
+		console.log(document.getElementById('u1').value); 
+		$.ajax({
+			type : "post",
+			url : "/saveuserinfo",
+			data : $('#u1').serialize(),
+			success : function(data) {
+				// Handle success
+				// ...
+				alert("success:");  
+				$("#u1").val(data.name);
+				$("#e1").val(data.email);
+			},
+			error : function() {
+				// Handle error
+				// ...
+				 alert("error!!"); 
+			}
+		});
+}
+	*/
+	
+	function saveData(){
+		var name = $("#u1").val(); 
+		var email =$("#e1").val();
+		$.ajax({
+			type : "post",
+			url : "/saveuserinfo",
+			data :  {'name': name,'email': email},
+			success : function(data) {
+				// Handle success
+				// ...
+				alert("success:");  
+			},
+			error : function() {
+				// Handle error
+				// ...
+				 alert("error!!"); 
+			}
+		});
+	}
+	
+	
+	function retrieveData(){
+		var name = $("#u1").val(); 
+		var email =$("#e1").val();
+		$.ajax({
+			type : "post",
+			url : "/retrieveuserinfo",
+			data :  {'name': name},
+			success : function(data) {
+				// Handle success
+				// ...
+				alert("success:");  
+			},
+			error : function() {
+				// Handle error
+				// ...
+				 alert("error3!!"); 
+			}
+		});
+	}
+</script>
+
+<body>
+	<form method="POST">
+		<table>
+			<tr>
+				<th>Booking No</th>
+				<th>Container No</th>
+				<th>ETD</th>
+			</tr>
+		</table>
+		<label for="isbn">Name:</label><input type="text" id="u1" name="name"
+			th:text="${name}" /> <label for="isbn">Email:</label><input
+			type="text" id="e1" name="email" th:text="${email}" /> 
+		<button	class="btn" onclick="saveData()">Save</button>
+		<button class="btn" onclick="retrieveData()">Retrieve</button>
+		<dl th:each="user : ${users}">
+			<dt class="UserInfo">
+				<span th:text="${user.name}">Name</span>
+				<span th:text="${user.email}">Email</span>
+			</dt>
+		</dl>
+	</form>
+	
+	
+</body>
+</html>

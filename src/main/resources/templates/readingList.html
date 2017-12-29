@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Reading List</title>
+<link rel="stylesheet" th:href="@{/style.css}"></link>
+<link rel="stylesheet" th:href="@{js/jquery-ui.css}"></link>
+<script th:src="@{js/jquery-3.2.1.js}"></script>
+<script th:src="@{js/jquery-ui.js}"></script>
+
+<!-- call jQuery UI  -->
+<script>
+	$(function() {
+		$("#tabs").tabs();
+		$("#etapicker").datepicker();
+		$("#etdpicker").datepicker();
+		$("#menu").menu();
+		var availablePkgCode = [ "ActionScript", "AppleScript", "Asp", "BASIC",
+				"C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang",
+				"Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp",
+				"Perl", "PHP", "Python", "Ruby", "Scala", "Scheme", "Carton" ];
+		$("#pkg_code").autocomplete({
+			source : availablePkgCode
+		});
+	});
+	
+	
+</script>
+
+<style>
+.ui-menu {
+	width: 150px;
+}
+</style>
+
+<script type="text/javascript">
+	function cleartl() {
+		document.getElementById("title").value = "";
+	}
+</script>
+
+</head>
+
+<body>
+
+	<!--  <iframe src="/navmenu.html" width="100%" height="1000"></iframe> -->
+
+	
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">Tab1</a></li>
+			<li><a href="#tabs-2">Tab2</a></li>
+			<li><a href="#tabs-3">Tab3</a></li>
+			<li><a href="#tabs-4">Tab4</a></li>
+		</ul>
+		<div id="tabs-1">
+			<div class="ui-widget">
+				<p>
+					Package <label for="pkg_code"></label> <input id="pkg_code" />
+				</p>
+			</div>
+			<div>
+				<label>HBL</label><input type="text" name="hblno" />
+			</div>
+			<div>
+				<label>Booking No</label><input type="text" name="bookingno" />
+			</div>
+
+			<div>
+				<label>VVD</label><input type="text" name="vvd" />
+			</div>
+  
+			<div>
+				<label>ETA</label> <input type="text" name="eta" id="etapicker" />
+			</div>
+			<p>ETD<input type="text" name="etd" id="etdpicker" />
+			</p>
+	  <fieldset>
+   		 <legend>Location</legend>
+			<div>
+				<label>POR</label> <input type="text" name="por" id="por" size="30" />
+				<label>POD</label> <input type="text" name="pod" id="pod" size="30" />
+			</div>	
+			<div>
+				<label>POL</label> <input type="text" name="pol" id="pol" size="30" />
+				<label>DEL</label> <input type="text" name="del" id="del" size="30" />
+			</div>
+		</fieldset>
+		
+		<fieldset>
+   		 <legend>Partner</legend>
+			<div>
+				<label>Shipper</label><input type="text" /><br/>
+				<label>Consignee</label><input type="text"/><br/>
+				<label>Notify Party</label><input type="text"/><br/>			
+			</div>
+		</fieldset>
+		
+			<h2>Your Reading List</h2>
+			<div th:unless="${#lists.isEmpty(books)}">
+				<dl th:each="book : ${books}">
+					<dt class="bookHeadline">
+						<span th:text="${book.title}">Title</span> by <span
+							th:text="${book.author}">Author</span> (ISBN: <span
+							th:text="${book.isbn}">ISBN</span>)
+					</dt>
+					<dd class="bookDescription">
+						<span th:if="${book.description}" th:text="${book.description}">Description</span>
+						<span th:if="${book.description eq null}"> No description
+							available</span>
+					</dd>
+				</dl>
+			</div>
+			<div th:if="${#lists.isEmpty(books)}">
+				<p>You have no books in your book list</p>
+			</div>
+			<hr />
+
+
+			<form method="POST">
+
+				<input type="search" value="findbyreader" /><br /> <input
+					type="password" name="login_pwd" value="password" /><br /> <label
+					for="title"><a href="javascript:cleartl()">Title:</a></label> <input
+					id="title" type="text" name="title" size="30" class="search_form"></input>
+
+				<br /> <label for="author">Author:</label> <input type="text"
+					name="author" size="50"></input><br />
+				<table>
+					<tbody>
+						<tr>
+							<!-- define service term -->
+							<th>SVC TERM</th>
+							<td><select name="from_svc_term"
+								onchange="blTpChange(this.value)" style="width: 100px;"
+								class="search_form">
+									<option value="CF">CFS</option>
+									<option value="DR" selected="selected">DOOR</option>
+									<option value="S3">FOT</option>
+									<option value="S4">FI</option>
+									<option value="S5">FO</option>
+									<option value="S6">TACKLE</option>
+									<option value="CY">CY</option>
+							</select> <span class="dash">-</span> <select name="to_svc_term"
+								onchange="blTpChange(this.value)" style="width: 100px;"
+								class="search_form">
+									<option value="CF">CFS</option>
+									<option value="DR" selected="selected">DOOR</option>
+									<option value="S3">FOT</option>
+									<option value="S4">FI</option>
+									<option value="S5">FO</option>
+									<option value="S6">TACKLE</option>
+									<option value="CY">CY</option>
+							</select></td>
+						</tr>
+					</tbody>
+				</table>
+				<label for="isbn">ISBN:</label> <input type="text" size="15"
+					name="isbn" value="ISBN"></input><br /> <label for="description">Description:</label><br />
+				<textarea name="description" cols="80" rows="5">
+        </textarea>
+				<br /> <input type="checkbox" value="73" name="ACI" />ACI<br /> <input
+					type="submit" value="save" /> <input type="submit" name="action"
+					value="retrieve" />
+			</form>
+		</div>
+
+		<div id="tabs-2"></div>
+		<div id="tabs-3"></div>
+		<div id="tabs-4"></div>
+	</div>
+</body>
+</html>

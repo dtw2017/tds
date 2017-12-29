@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Reading List</title>
+<link rel="stylesheet" th:href="@{/style.css}"></link>
+<link rel="stylesheet" th:href="@{js/jquery-ui.css}"></link>
+<script th:src="@{js/jquery-3.2.1.js}"></script>
+<script th:src="@{js/jquery-ui.js}"></script>
+<script th:src="@{js/housebl.js}"></script>
+
+<!-- call jQuery UI  -->
+<script>
+	$(function() {
+		$("#tabs").tabs();
+		$("#etapicker").datepicker();
+		$("#etdpicker").datepicker();
+		$("#menu").menu();
+		var availablePkgCode = [ "ActionScript", "AppleScript", "Asp", "BASIC",
+				"C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang",
+				"Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp",
+				"Perl", "PHP", "Python", "Ruby", "Scala", "Scheme", "Carton" ];
+		$("#pkg_code").autocomplete({
+			source : availablePkgCode
+		});
+	});
+</script>
+
+<style type="text/css">
+.btn {
+	color: red;
+}
+
+.inputcss {
+	border: 1px solid #d8d8d8;
+	padding-top: 2px;
+	height: 18px;
+	width: 138px;
+	text-align: right;
+	font-weight: normal;
+	color: #000000;
+	font-size: 9pt;
+	vertical-align: bottom;
+}
+
+.table_normal {
+	width: 960px;
+}
+</style>
+
+</head>
+
+<body>
+
+	<!--  <iframe src="/navmenu.html" width="100%" height="1000"></iframe> -->
+	
+	
+	<button type="reset" name="saveHBL" onclick="newHBL()">Create</button>
+	<button type="submit" name="retrieveHBL" onclick="retrieveHBL()">Retrieve</button>
+	<button type="submit" name="saveHBL" onclick="saveHBL()">Update</button>
+	<button type="submit" id = "deletehbl" name="deleteHBL" onclick="reset()">Delete</button>
+	<button type="submit" name="printHBL" onclick="">Print</button>
+	<div id="tabs">
+		<ul>
+			<li><a href="#tabs-1">General</a></li>
+			<li><a href="#tabs-2">Customer</a></li>
+			<li><a href="#tabs-3">Container</a></li>
+			<li><a href="#tabs-4">MarksNos</a></li>
+			<li><a href="#tabs-5">Filing</a></li>
+			<li><a href="#tabs-5">History</a></li>
+		</ul>
+		<div id="tabs-1">
+
+			<table class="table_normal">
+				<tr>
+					<th><font color="red">*</font><label for="scac_nm">HBL
+							No</label></th>
+					<td><input type="text" id="hblno" class="inputcss"
+						name="hblno" /></td>
+					<th><font color="red">*</font><label for="scac_nm">MBL
+							No</label></th>
+					<td><input type="text" class="inputcss" name="mblno" /></td>
+				</tr>
+			</table>
+			<div>
+				<label>Booking No</label><input type="text" id="bookingno"
+					class="inputcss" name="bookingno" />
+			</div>
+
+			<div>
+				<label>VVD</label><input type="text" id="vvd" name="vvd" />
+			</div>
+
+			<div>
+				<label>ETA</label> <input type="text" name="eta" id="etapicker" />
+			</div>
+			<p>
+				ETD<input type="text" name="etd" id="etdpicker" />
+			</p>
+			<fieldset>
+				<legend>Location</legend>
+				<div>
+					<label>POR</label> <input type="text" name="por" id="por" size="30" />
+					<label>POD</label> <input type="text" name="pod" id="pod" size="30" />
+				</div>
+				<div>
+					<label>POL</label> <input type="text" name="pol" id="pol" size="30" />
+					<label>DEL</label> <input type="text" name="del" id="del" size="30" />
+				</div>
+			</fieldset>
+
+
+		</div>
+
+		<div id="tabs-2">
+			<fieldset>
+				<legend>Partner</legend>
+				<div>
+					<label>Shipper</label>
+					<textarea rows="4" cols="61" id="shipper"
+						name="shipper" style="overflow-y: scroll; width: 374px;"></textarea>
+					<br /> <label>Consignee</label><input type="text" /><br /> <label>Notify
+						Party</label><input type="text" /><br />
+				</div>
+			</fieldset>
+		</div>
+		<div id="tabs-3"></div>
+		<div id="tabs-4">
+			<div class="ui-widget">
+				<p>
+					Package <label for="pkg_code"></label> <input id="pkg_code" />
+				</p>
+			</div>
+		</div>
+
+		<div id="tabs-5"></div>
+		<div id="tabs-6"></div>
+	</div>
+</body>
+</html>

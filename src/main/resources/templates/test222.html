@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Getting Started: Serving Web Content</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<script>
+	function retrieveData() {
+		var name = $("#u1").val();
+		$.ajax({
+			type : "post",
+			url : "/getusers",
+			data : {
+				'name' : name
+			},
+			success : function(data) {
+				// Handle success
+				// ...
+				alert("success:");
+			},
+			error : function() {
+				// Handle error
+				// ...
+				alert("error3!!");
+			}
+		});
+	}
+</script>
+
+<body>
+	<p>
+		<label th:text="#{welcome}"></label>
+	</p>
+	<input type="text" id="u1" name="name" value="yourname"
+		th:text="${name}" />
+	<button class="btn" onclick="retrieveData()">Retrieve</button>
+<!-- 
+	<div>
+		<dl th:each="user : ${users}">
+			<dt class="bookHeadline">
+				<input type="text" disabled="disabled" th:value="${user.id}" /> <input
+					type="text" th:value="${user.name}" /> <input type="text"
+					readonly="readonly" th:value="${user.email}" />
+			</dt>
+		</dl>
+	</div>
+ -->
+ 		<div>
+		<dl th:each="user : ${allusers}">
+			<dt class="bookHeadline">
+				<input type="text" disabled="disabled" th:value="${user.id}" /> 
+				<input type="text" th:value="${user.name}" /> 
+				<input type="text" readonly="readonly" th:value="${user.email}" />
+			</dt>
+		</dl>
+	</div>
+	
+	<dl th:each="container: ${containers}">
+		<dt class="containerinfo">
+		<input type="text" th:value="${container.number}" />
+		<input type="text" th:value="${container.qty}" />
+		<input type="text" th:value="${container.size}" />
+		<input type="text" th:value="${container.type}" />
+		<input type="text" th:value="${container.seal}" />
+		</dt>
+	</dl>
+	
+</body>
+</html>

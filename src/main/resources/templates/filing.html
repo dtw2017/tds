@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Customs Compliance</title>
+<link rel="stylesheet" th:href="@{/style.css}"></link>
+<link rel="stylesheet" th:href="@{js/jquery-ui.css}"></link>
+<script th:src="@{js/jquery-3.2.1.js}"></script>
+<script th:src="@{js/jquery-ui.js}"></script>
+<script th:src="@{js/housebl.js}"></script>
+<script>
+  $(function() {
+      $( "#upload-progress" ).progressbar();
+      $( "form" ).submit( function( e ) {
+  122
+e.preventDefault();
+$.ajax({
+   url: $( this ).attr("action"),
+   type: "POST",
+   data: new FormData( this ),
+   cache: false,
+   contentType: false,
+   processData: false,
+   xhr: function() {
+       xhr = $.ajaxSettings.xhr();
+       if ( xhr.upload ) {
+           xhr.upload.onprogress = onprogress;
+}
+       return xhr; }
+});
+    return false;
+});
+      
+       var onprogress = function( e ) {
+           var uploadPercent = ( e.loaded / e.total * 100 ).toFixed();
+           $( "#upload-container" ).show();
+           $( "#upload-value" ).text( "Uploading..." + uploadPercent +
+   "%" );
+              $( "#upload-progress" ).progressbar( "option", "max", e.total
+                                     .progressbar( "value", e.loaded );
+   }; });
+  
+  </script>
+  
+</head>
+<body>
+	<form action="http://127.0.0.1:8080/" method="POST">
+		<input type="file" name="fileupload" /> <br /> <input type="submit"
+			value="Upload" />
+		<div id="upload-container" class="ui-helper-hidden">
+			<strong id="upload-value">Uploading...</strong>
+			<div id="upload-progress"></div>
+		</div>
+	</form>
+</body>
+</html>
