@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity // persistent entity class must have at least the @Entity annotation.
-		// Hibernate maps this class to a table called BOOK.
+		// Hibernate maps this class to a table called BOOK..
 @Table(name = "book")
 public class Book {
 	@Id // Every persistent entity class must have an identifier attribute
