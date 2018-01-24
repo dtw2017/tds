@@ -1,11 +1,14 @@
 package com.example.readinglist;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "housebl")
@@ -17,6 +20,8 @@ public class HouseBL {
 	private String bookingno;
 	private String vvd;
 	private Date eta;
+	//private Set<Container> container;
+	
 	
 	public Integer getId() {
 		return id;
@@ -50,4 +55,11 @@ public class HouseBL {
 		this.eta = eta;
 	}
 	
+/**	@OneToMany(mappedBy = "hblno", cascade = CascadeType.ALL)
+	public Set<Container> getContainer() {
+		return container;
+	}
+	public void setContainer(Set<Container> container) {
+		this.container = container;
+	}**/
 }

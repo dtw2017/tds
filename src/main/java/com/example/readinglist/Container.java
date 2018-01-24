@@ -1,9 +1,16 @@
 package com.example.readinglist;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import com.example.readinglist.HouseBL;
 
+@Entity
+@Table(name = "container")
 public class Container {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,7 +20,7 @@ public class Container {
 	private String sealno;
 	private String type;
 	private String size;
-	//private HouseBL hbl;
+	//private HouseBL housebl;
 	
 	public Integer getId() {
 		return id;
@@ -45,5 +52,14 @@ public class Container {
 	public void setSize(String size) {
 		this.size = size;
 	}
-	
+
+/**	@ManyToOne
+    @JoinColumn(name = "hblno")
+	public HouseBL getHousebl() {
+		return housebl;
+	}
+	public void setHousebl(HouseBL housebl) {
+		this.housebl = housebl;
+	}
+	**/
 }

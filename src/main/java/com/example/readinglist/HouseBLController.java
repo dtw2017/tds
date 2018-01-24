@@ -48,8 +48,9 @@ public class HouseBLController {
 	@RequestMapping(value = "/housebl",params= {"delete"})
 	public @ResponseBody HouseBL deleteHouseBL(@RequestBody String hblno) {
 		HouseBL houseblinfo = houseblRepository.findByhblno(hblno);
-		System.out.println(houseblinfo.getVvd());
-		houseblRepository.delete(houseblinfo);
+		//System.out.println(houseblinfo.getVvd());
+		//houseblRepository.delete(houseblinfo);
+		houseblRepository.deleteAll();
 		return houseblinfo;
 	}
 	
