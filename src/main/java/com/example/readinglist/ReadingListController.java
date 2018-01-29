@@ -128,7 +128,7 @@ public class ReadingListController {
 	}
 
 	// success, access /getuser?name=username
-	@GetMapping(value = "/getuser") // @RequsetMapping method=RquesGet
+	@GetMapping(value = "/getuser") // @RequsetMapping method=RequesGet
 	public @ResponseBody Iterable<User> getuser(@RequestParam("name") String name) {
 		return userRepository.findByName(name);
 	}

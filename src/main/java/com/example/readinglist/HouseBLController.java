@@ -9,7 +9,6 @@ import com.example.readinglist.HouseBL;
 import com.example.readinglist.HouseBLRepository;
 
 @Controller
-
 public class HouseBLController {
 	
 
